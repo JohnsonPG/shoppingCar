@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		
+	</head>
+	<body>
+		<script>
+			/*Array.prototype.trim=function(){
+				var arr=this.slice();
+				for(let i=0;i<arr.length;i++){
+					arr[i]=arr[i].trim()
+				}
+				return arr;
+			}
+			arr=[' a ',' b ',' c ',' c','d ',' d','e ',' f',' a']
+			arr1=arr.trim()
+			console.log(arr)
+			console.log(arr1)*/
+			arr=[{"age":1},{"age":2},{"age":3},{"age":4}]
+			arrs=arr.map(function(item){
+				console.log(item.age)
+			})
+			len=arrs.reduce(function(prev,next){
+				return prev*next;
+				/*prev表示前面数字之和
+				 * next当前数字 
+				 */
+			})
+			console.log('--------------------------------------')
+			console.log(arr.map((item)=>item.age).reduce((prev,next)=>prev+next))
+			console.log(len)
+			/*arr.trim()
+			console.log(arr)*/
+		</script>
+	</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/jquery.js"></script>
+		<style>
+			div{
+				width:300px;
+				height:500px;
+				border:1px solid black;
+				float:left;
+			}
+			div img{
+				width:100%;
+				margin:0 auto;
+			}
+			h3,h4{
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		 <!--<div>
+		 	<input type="checkbox"/><br />
+		 	<h3>产品名称</h3>
+		 	<img src="" />
+		 	<h4>2.00</h4>
+		 	<button>+</button>
+		 	<input type="text" />
+		 	<button>-</button>
+		 </div>-->
+		 <h2>数量:0，总金额:0</h2>
+		 <script>
+		 	$.ajax({
+		 		url:'http://192.168.7.221:3000/list',
+		 		type:'get',
+		 		dataType:"jsonp",
+		 		success:function(result){
+		 			var list=result.result.list;
+		 			for(let i=0;i<list.length;i++){
+		 				/*建立布局元素*/
+		 				let ocheck=$("<input type='checkbox'/><br/>")
+		 				let odiv=$("<div>")
+		 				let oh3=$("<h3>")
+		 				let oimg=$("<img>")
+		 				let oh4=$("<h4>")
+		 				let ocenter=$("<center>")
+		 				let obtn1=$("<button>+</button>")
+		 				let otext=$("<input type='text' />")
+		 				let obtn2=$("<button>-</button>")
+		 				/*将获取到的数据显示到对应的元素上*/
+		 				oh3.text(list[i].productName)
+		 				oimg.attr("src","http://192.168.7.221/img/"+list[i].productImage)
+		 				oh4.text("￥"+list[i].salePrice+".00元")
+		 				/*添加元素并给相关的按钮加动作*/
+		 				odiv.append(ocheck)
+		 				let flag=false;
+		 				ocheck.click(function(){
+		 					flag=!flag;
+		 					list[i].checked=flag;
+		 					let fcount=0;
+		 					let fsum=0;
+		 					/*for(let j=0;j<list.length;j++){
+		 						if(list[j].checked){
+		 							console.log(list[j].productNum)
+		 							console.log(list[j].salePrice)
+		 							fcount+=list[j].productNum;
+		 							fsum+=list[j].salePrice*list[j].productNum;
+		 						}
+		 					}*/
+		 					/*返回总价格*/
+		 					list_price=list.map(function(item){
+		 						if(item.checked){
+		 							return item.salePrice*item.productNum
+		 						}else{
+		 							return 0;
+		 						}
+		 					})
+		 					reduce_price=list_price.reduce(function(prev,next){
+		 						return prev+next;
+		 					})
+		 					/*返回数量*/
+		 					map_count=list.map(function(item){
+		 						if(!item.productNum){
+		 							return 0;
+		 						}else{
+		 							return item.productNum;
+		 						}
+		 						
+		 					})
+		 					reduce_count=map_count.reduce(function(prev,next){
+		 						return prev+next;
+		 					})
+		 					$("h2").text("数量为："+reduce_count+";总金额为"+reduce_price)
+		 				})
+		 				odiv.append(oh3)
+		 				odiv.append(oimg)
+		 				odiv.append(oh4)
+		 				ocenter.append(obtn1)
+		 				let icount=0
+		 				obtn1.click(function(){
+		 					icount++;
+		 					otext.val(icount)
+		 					list[i].productNum=icount
+		 				})
+		 				ocenter.append(otext)
+		 				otext.val(icount)
+		 				ocenter.append(obtn2)
+		 				obtn2.click(function(){
+		 					icount--;
+		 					if(icount<0){
+		 						icount=0
+		 					}
+		 					otext.val(icount)
+		 					list[i].productNum=icount
+		 				})
+		 				odiv.append(ocenter)
+		 				$("body").append(odiv)
+		 			}
+		 			
+		 		}
+		 	})
+		 </script>
+	</body>
+</html>

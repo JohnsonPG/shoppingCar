@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>测试Btn</title>
+		<script src="js/jquery.js"></script>
+		<script src="Btn.js"></script>
+		<script src="ZJ.js"></script>
+	</head>
+	<body>
+		<h2>数量:0 总金额:0</h2>
+		<script>
+			$.ajax({
+		 		url:'http://192.168.7.221:3000/list',
+		 		type:'get',
+		 		dataType:"jsonp",
+		 		success:function(result){
+		 			var list=result.result.list
+		 			console.log(list)
+		 			for(let i=0;i<list.length;i++){
+		 				var btn=new Btn()
+		 				var zj=new ZJ(list[i].productName,"http://192.168.7.221/img/"+list[i].productImage,list[i].salePrice,btn)
+		 			}
+				 },
+				 
+		 		error:function(result){
+		 			
+		 		}
+		 	})
+		</script>
+	</body>
+</html>
