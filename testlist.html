@@ -10,23 +10,61 @@
 	<body>
 		<h2>数量:0 总金额:0</h2>
 		<script>
+			var zjs=[]
+			var btns=[]
+			var list;
 			$.ajax({
 		 		url:'http://192.168.7.221:3000/list',
 		 		type:'get',
 		 		dataType:"jsonp",
 		 		success:function(result){
-		 			var list=result.result.list
+		 			list=result.result.list
 		 			console.log(list)
 		 			for(let i=0;i<list.length;i++){
 		 				var btn=new Btn()
-		 				var zj=new ZJ(list[i].productName,"http://192.168.7.221/img/"+list[i].productImage,list[i].salePrice,btn)
+		 				var zj=new ZJ(list[i].productName,"http://localhost/img/"+list[i].productImage,list[i].salePrice,btn)
+		 				zjs.push(zj)
+		 				btns.push(btn)
 		 			}
-				 },
-				 
+		 		},
 		 		error:function(result){
 		 			
 		 		}
 		 	})
+			document.body.addEventListener("click",this.clickme.bind(this))
+			function clickme(){
+			
+				for(let i=0;i<zjs.length;i++){
+					console.log(zjs[i].checked)
+					if(zjs[i].checked){
+						list[i]['checked']=zjs[i].checked
+						list[i]['productNum']=btns[i].values
+					}
+				}
+				list_map1=list.map(function(item){
+					if(item.checked){
+						return item.productNum;
+					}else{
+						return 0;
+					}
+					
+				})
+				list_reduce1=list_map1.reduce(function(prev,next){
+					return prev+next;
+				})
+				list_map=list.map(function(item){
+					if(item.checked){
+						return item.salePrice*item.productNum;
+					}else{
+						return 0;
+					}
+					
+				})
+				list_reduce=list_map.reduce(function(prev,next){
+					return prev+next;
+				})
+				$("h2").text("数量:"+list_reduce1+";总金额"+list_reduce)
+			}
 		</script>
 	</body>
 </html>

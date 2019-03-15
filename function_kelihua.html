@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>函数柯里化</title>
+	</head>
+	<body>
+		<script>
+			/*
+			 * 求add(1,2) 
+			 * add(1)(2)函数柯里化
+			 * 1、把参数单个化，只接受一个参数
+			 * 2、返回一个函数
+			 */
+			/*
+			 * add(1,2)
+			 */
+			/*function add(a,b){
+				return a+b;
+			}
+			function add(a){
+				return function(b){
+					return function(c){
+						return a+b+c;
+					}
+				}
+			}*/
+			
+			/*
+			 * 要求写出一个函数，同时实现add(1,2) add(1)(2)
+			 */
+			function add(a,b){
+				if (b==null){
+					return function(b){
+						return a+b;
+					}
+				}else{
+					return a+b;
+				}
+			}
+			console.log("柯里化的结果"+add(1)(2))
+			console.log("非柯里化"+add(3,4))
+		</script>
+	</body>
+</html>

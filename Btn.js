@@ -1,6 +1,7 @@
 /*按钮类*/
 function Btn(){
 	this.values=0;
+	
 	this.init()
 }
 Btn.prototype={
@@ -30,6 +31,7 @@ Btn.prototype={
 		}
 		this.values++;
 		this.otext.value=this.values
+	
 		/*this.data.productNum=this.values*/
 	},
 	sub(e){
@@ -41,6 +43,7 @@ Btn.prototype={
 			this.values=0
 		}
 		this.otext.value=this.values;
+		
 		/*this.data.productNum=this.values*/
 	}
 }

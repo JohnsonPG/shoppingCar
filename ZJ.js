@@ -3,7 +3,7 @@ function ZJ(title,pic,price,btn){
 	this.btn=btn;
 	this.init(title,pic,price)
 	this.flag=false
-	
+	this.checked=false
 }
 ZJ.prototype={
 	init(title,pic,price){
@@ -44,7 +44,8 @@ ZJ.prototype={
 		}*/
 		this.odiv.style.background=this.flag?"blue":"transparent"
 		/*把json数据加了一条checked*/
-		this.data.checked=this.flag;
+		
+		this.checked=this.flag;
 		
 	}
 }
